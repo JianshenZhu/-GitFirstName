@@ -90,7 +90,7 @@ void ma(int *p){
 int main(int argc, char *argv[])
 {
     int ia, ib, ic, id, ie, ig, ih, ii;
-     int *p=malloc((size)*sizeof(int));
+     int *p;
         for (ii=1;ii<argc;ii++){
     if ((argv[ii][0] == '-') && (argv[ii][1] == 'h')){
         printf("-n: File number (value needed)\n-o: offset value (value needed)\n-s: scale factor (value needed)\n-S: Get statistics\n-C: Center the signal\n-N: Normalize signal\n-r: Rename files (name needed) \nFor example:./My_Lab5_program –s 1.7 –S –N –n 10 will read the file “Raw_data_10.txt”; it should scale the signal by 1.7 (and save the corresponding file “Scaled_data_10.txt”); it should calculate the statistics of the original signal (and save them to the corresponding file); and it should normalize the original signal (again, saving the corresponding file).  \n");
@@ -120,11 +120,12 @@ int main(int argc, char *argv[])
         	printf("%d\n", f);
          	fflush(stdout);
          	size=f;
+            p=malloc((size)*sizeof(int));
         while (fscanf(fstream, "%d", &t) != EOF) {//read the second value of the file which is the maximum possible value.
 		for (i=0;i<size;++i){
 		fscanf(fstream, "%d", (p+i));//the for loop is to read all the values in the file.
 	}
-    for (ih=1;ih<argc-1;ih++){  
+    for (ih=1;ih < argc;ih++){  
     if ((argv[ih][0] == '-') && (argv[ih][1] == 'r')){
     for (ib=1;ib<argc;ib++){
     if((argv[ib][0] == '-') && (argv[ib][1] == 'o')){
