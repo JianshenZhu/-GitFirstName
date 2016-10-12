@@ -1,9 +1,9 @@
 #include <stdio.h>
-#include<malloc.h>
+#include<malloc.h>//In this case the program is using the malloc but forgot to include <malloc.h> in the head.
 int main(void) 
 {
 	char *ch;
-	ch=malloc(sizeof(char)*2);    
+	ch=malloc(sizeof(char)*2);    // Because of already defined a printer ch, you shouldn’t use *ch to assign it to a malloc function. 
 	ch[1]='3';
 	ch[2]='a';
 	while (ch[1] > '0') 
