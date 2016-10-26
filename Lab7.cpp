@@ -357,12 +357,72 @@ int main(int argc, char *argv[])
             value = strtod(argv[2], &q);
             cout << value << endl;
             Signal Signal1(value);
+                 cout << "Do you want to display info (y/n)" << endl;
+                char info;
+                cin >> info;
+                if (info == 'y'){
+                Signal1.Sig_info();//cout info
+                cout << "Do you want to save info (y/n)" << endl;
+                    char save;
+                    cin >> save;
+                    if ( save == 'y'){
+                        cin >> nam;
+                        nf = nam;
+                        Signal1.Save_file(nf);// save data in new file
+                        break;
+                    }
+                    else 
+                        break;
+                }
+                else {
+                    cout << "Do you want to save info (y/n)" << endl;
+                    char save;
+                    cin >> save;
+                    if ( save == 'y'){
+                        cin >> nam;
+                        nf = nam;
+                        Signal1.Save_file(nf);//save data in new file
+                        break;
+                    }
+                    else 
+                        break;
+                }
             exit(1);
         }
         else if ((argv[1][0] == '-') && (argv[1][1] == 'f')){//if input -f then do this
             na = nam;
             strcat(nam, argv[2]);
             Signal Signal2(na);
+            cout << "Do you want to display info (y/n)" << endl;
+                char info;
+                cin >> info;
+                if (info == 'y'){
+                Signal2.Sig_info();//cout info
+//                cout << "Do you want to save info (y/n)" << endl;
+//                    char save;
+//                    cin >> save;
+//                    if ( save == 'y'){
+//                        cin >> nam;
+//                        nf = nam;
+//                        Signal2.Save_file(nf);
+//                        break;
+//                    }
+//                    else 
+                        break;
+                }
+                else {
+//                    cout << "Do you want to save info (y/n)" << endl;
+//                    char save;
+//                    cin >> save;
+//                    if ( save == 'y'){
+//                        cin >> nam;
+//                        nf = nam;
+//                        Signal2.Save_file(nf);
+//                        break;
+//                    }
+//                    else
+                        break;
+                }
             exit(1);
         }
         }
