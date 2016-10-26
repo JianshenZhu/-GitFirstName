@@ -243,7 +243,7 @@ void Signal::newscale(int *p){
           fprintf(ofp, "%.4lf\n", *(p+i)*s);//out put the values after scaled.
         }
 }
-//me function for calculate the mean value of all the values in the files.
+//average function for calculate the mean value of all the values in the files.
 double Signal::average(int *p){
                 mean=0;
      	for (i=0;i<size;++i){
@@ -265,7 +265,7 @@ double Signal::ma(int *p){
                 cout << m << endl;
                 return m;
 }
-
+//ave function for calculate the mean value of all the values in the files.
 double Signal::ave(float *p){
                 mean=0;
      	for (i=0;i<size;++i){
@@ -276,7 +276,7 @@ double Signal::ave(float *p){
                 cout << mean << endl;
                 return mean;
 }
-//ma function for find the max value in the files.
+//mav function for find the max value in the files.
 double Signal::mav(float *p){
                 m=0;
             for (i=0;i<size;++i){
@@ -288,7 +288,7 @@ double Signal::mav(float *p){
                 return m;
 }
 
-void Signal::Sig_info(){
+void Signal::Sig_info(){//used to cout info
                 float *p;
                 float w;
                 cout << "Please input the file number." << endl;
@@ -318,7 +318,7 @@ void Signal::Sig_info(){
         }
 }
 
-void Signal::Save_file(char *nf){
+void Signal::Save_file(char *nf){//used to save the data in new file
     readfile();
     if(fop==NULL)//This is to make sure it will open the file correctly.
     {
@@ -351,26 +351,26 @@ void Signal::Save_file(char *nf){
 int main(int argc, char *argv[])
 {
     while (1){
-        if (argc >= 2){
-        if ((argv[1][0] == '-') && (argv[1][1] == 'n')){
+        if (argc >= 2){//check the command have 2 or more arguments or not
+        if ((argv[1][0] == '-') && (argv[1][1] == 'n')){//if input -n then do this
         	char *q;
             value = strtod(argv[2], &q);
             cout << value << endl;
             Signal Signal1(value);
             exit(1);
         }
-        else if ((argv[1][0] == '-') && (argv[1][1] == 'f')){
+        else if ((argv[1][0] == '-') && (argv[1][1] == 'f')){//if input -f then do this
             na = nam;
             strcat(nam, argv[2]);
             Signal Signal2(na);
             exit(1);
         }
         }
-        else {
+        else {//if no correct command, then do it manually
             char c;
             cout << "Please input a (To open the file by file number) or b (To creat a new file) or e (exit), otherwise, call the default constructor." << endl;
             c=getchar();
-            switch(c){
+            switch(c){//check the input value
             case 'a':{
                 cout << "Please input the file number." << endl;
                 cin >> value;
@@ -380,14 +380,14 @@ int main(int argc, char *argv[])
                 char info;
                 cin >> info;
                 if (info == 'y'){
-                Signal1.Sig_info();
+                Signal1.Sig_info();//cout info
                 cout << "Do you want to save info (y/n)" << endl;
                     char save;
                     cin >> save;
                     if ( save == 'y'){
                         cin >> nam;
                         nf = nam;
-                        Signal1.Save_file(nf);
+                        Signal1.Save_file(nf);// save data in new file
                         break;
                     }
                     else 
@@ -400,7 +400,7 @@ int main(int argc, char *argv[])
                     if ( save == 'y'){
                         cin >> nam;
                         nf = nam;
-                        Signal1.Save_file(nf);
+                        Signal1.Save_file(nf);//save data in new file
                         break;
                     }
                     else 
@@ -417,7 +417,7 @@ int main(int argc, char *argv[])
                 char info;
                 cin >> info;
                 if (info == 'y'){
-                Signal2.Sig_info();
+                Signal2.Sig_info();//cout info
 //                cout << "Do you want to save info (y/n)" << endl;
 //                    char save;
 //                    cin >> save;
