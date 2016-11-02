@@ -36,7 +36,7 @@ static string morseCode[] = {
     "--..", //Z
 };
 
-class message{
+class message{//message class
     private:
     
     protected:
@@ -49,28 +49,28 @@ class message{
         virtual void printinfo();
 };
 
-message::message(){
+message::message(){//default
     cout << "Please input the message." << endl;
     msg = "";
 }
 
-message::message(const string m){
+message::message(const string m){//Parametric constructor take in the message 
     msg = m;
 }
 
-message::~message(){
+message::~message(){//destructor
     msg.clear();
 }
 
-void message::printinfo(){
+void message::printinfo(){//print the message
     cout << "Message is :" << msg << endl;
 }
 
-string message::str(){
+string message::str(){//to return the message input
     return (msg);
 }
 
-class morseCodeMessage : public message{
+class morseCodeMessage : public message{//derived class from message
     private:
     
     public:
@@ -90,11 +90,11 @@ morseCodeMessage::morseCodeMessage(string m) : message(m){
     x = 0;
      while (letter[x])
   {
-    letter[x] = tolower(letter[x]);
+    letter[x] = tolower(letter[x]);//make all the letters in uppercase to lowercase
     x++;
   }
     Code = new string[length];
-    translate();
+    translate();//translate the message to morse code
 }
 
 morseCodeMessage::~morseCodeMessage(){
@@ -104,17 +104,17 @@ morseCodeMessage::~morseCodeMessage(){
 
 void morseCodeMessage::translate(){
     for (x = 0; x < length; x++){
-    size_t index = letters.find(letter[x]);
+    size_t index = letters.find(letter[x]);//to find the letter in the string letters
     if (index!=string::npos){
 //    cout << "letters found at: " << index << '\n' << endl;
 //    cout << "Which Morse Code is: " << morseCode[index] << '\n' << endl;
-        Code[x] = morseCode[index];
+        Code[x] = morseCode[index];//take the corresponding morse code
 //        cout << Code[x] << endl;
     }
     }
 }
 
-void morseCodeMessage::printinfo(){
+void morseCodeMessage::printinfo(){//output the message, lowercase message, morse code of the message
     cout << "Message is: " << msg << "\n" << endl
          << "Message in lowercase is: " << letter << "\n" << endl
          << "Morse Code is: ";
@@ -124,7 +124,7 @@ void morseCodeMessage::printinfo(){
     cout << "\n" << endl;
 }
 
-class messageStack{
+class messageStack{//Stack class
     private:
     
     public:
@@ -135,32 +135,28 @@ class messageStack{
         message pop();
         void printStack();
         int stack_pop;
-        int num_of_objects;
+        int num_of_objects;//to count the messages in the stack
 };
 
-messageStack::messageStack(){
+messageStack::messageStack(){// a parametric constructor take one message object. 
     num_of_objects = 0;
     cout << "Please input the message." << endl;
     string n;
     getline (cin, n);
     if (num_of_objects < n.length()){
-    ptrStack[num_of_objects] = new message(n);
+    ptrStack[num_of_objects] = new message(n);//allocate the memory to the pointer
     num_of_objects++;
     }
     cout << ptrStack[0]->str() << endl;
-//    push();
-//    pop();
-//    cout << "push again" << endl;
-//    push();
 }
 
-messageStack::~messageStack(){
+messageStack::~messageStack(){//destructor
     for (int i = 0; i < num_of_objects; i++){
     delete ptrStack[i];
     }
 }
 
-void messageStack::push(){
+void messageStack::push(){//push new message to the stack
     while (num_of_objects < 10){
     cout << "Do you want to push message? (y/n)" << endl;
     char c;
@@ -180,7 +176,7 @@ void messageStack::push(){
     }
 }
 
-message messageStack::pop(){
+message messageStack::pop(){//pop out the last message pushed into the Stack
     message temp;
     temp = message("ok");
     while (num_of_objects > 1){
@@ -201,7 +197,7 @@ message messageStack::pop(){
     return (temp);
 }
 
-void messageStack::printStack(){
+void messageStack::printStack(){//print all the messages in the Stack
     for (int i = num_of_objects-1; i >= 0; i--){
     cout << ptrStack[i]->str() << endl;
     }
@@ -210,13 +206,13 @@ void messageStack::printStack(){
 int main(){
     cout << "Please input the message." << endl;
     string n;
-    getline (cin, n);
+    getline (cin, n);//get user's input
     message M1(n);
-    M1.printinfo();
+    M1.printinfo();//output the message
     morseCodeMessage cM1(n);
-    cM1.printinfo();
+    cM1.printinfo();//output the message in morseCode
     messageStack S1;
-    S1.push();
-    S1.pop();
-    S1.printStack();
+    S1.push();//do push
+    S1.pop();//do pop
+    S1.printStack();//output the stuff in the Stack
 }
