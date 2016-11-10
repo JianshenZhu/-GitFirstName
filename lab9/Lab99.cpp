@@ -31,8 +31,8 @@ class Signal{
     Signal number(int *p);
     Signal name(int *p);
     void readfile();
-    void offset(int *p);
-    void scale(int *p);
+    void offset(int *p, Signal &lfs);
+    void scale(int *p, Signal &lfs);
     void newoffset(int *p);
     void newscale(int *p);
     void Sig_info();
@@ -97,14 +97,53 @@ cout << "Please input the file number." << endl;
         while (fscanf(fop, "%d", &t) != EOF) {//read the second value of the file which is the maximum possible value.
 		for (i=0;i<size;++i){
 		fscanf(fop, "%d", (p+i));//the for loop is to read all the values in the file.
+		*(data+i) = *(p+i);
 	}
  //   name(p);
 }
 }
 }
 
+void Signal::operator+(double &x)//(member) operators
+{
+	for (int i = 0; i < size; i++){
+	*(data+i) +=  x;
+}
+}
+
+void Signal::operator*(double &fa)//(member) operators 
+{	
+	for (int i = 0; i < size; i++){
+	*(data+i) = *(p+i) * fa;
+}
+}
+
+void Signal::offset(int *p, Signal &lhs){
+        cout << "please enter the offset value" << endl;
+        cin >> o;
+        cout << o << endl;
+        ofp = fopen(raw, "w");
+		fprintf(ofp, "%d %.4lf\n", length, o);//out put the first value and the offset value.
+	lhs+o;//add signal with offset value
+     	for (i=0;i<size;++i){
+          fprintf(ofp, "%.4lf\n", (double)*(p+i));//out put the values after offset.
+        }
+    }
+
 Signal::~Signal(){
     cout<<"\nDestructor"<<endl;
+}
+
+void Signal::scale(int *p, Signal &lhs){
+        cout << "please enter the scaling factor" << endl;
+        cin >> s;
+        cout << s << endl;
+        ofp = fopen(raw, "w");
+		fprintf(ofp, "%d %.4lf\n", length, s);//out put the first value and the scale factor.
+	lhs*s;//add signal with scale factor
+     	for (i=0;i<size;++i){
+          fprintf(ofp, "%.4lf\n", (double)*(p+i));//out put the values after scaled.
+        }
 }
 
 //readfile function for open the correct file and read the files.
@@ -146,7 +185,7 @@ void Signal::info(){
 }
 
 
-Signal operator+(Signal &lhs, Signal &rhs)
+Signal operator+(Signal &lhs, Signal &rhs)//(non-member) addition operator
 {
 	Signal maxx;
 	if (lhs.ma(lhs.data) > rhs.ma(rhs.data))
@@ -174,5 +213,13 @@ Signal Sig2(value), Sig3;
 	if (Sig1.length == Sig2.length){
 	Sig3 = operator+(Sig1, Sig2);
 	Sig3.info();
+
+	cout << "Please input the file number ." << endl;
+                cin >> value;
+	Signal Sig4(value);
+	Sig4.offset(p, Sig4);
+	Sig4.info();
+	Sig4.scale(p, Sig4);
+	Sig4.info();
 }
     }
